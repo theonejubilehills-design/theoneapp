@@ -108,33 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 6. Account Deletion Request Simulation (Support Page)
-  const deletionForm = document.getElementById('account-deletion-form');
-  const deletionFormWrapper = document.getElementById('deletion-form-wrapper');
-  const deletionSuccess = document.getElementById('deletion-success-message');
 
-  if (deletionForm && deletionFormWrapper && deletionSuccess) {
-    deletionForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-
-      // Confirm user input safety
-      const confirmationCheckbox = document.getElementById('delete-confirm');
-      if (confirmationCheckbox && !confirmationCheckbox.checked) {
-        alert('Please review and check the confirmation box.');
-        return;
-      }
-
-      // Simulate deletion schedule submission latency
-      const btn = deletionForm.querySelector('button');
-      btn.innerText = 'Scheduling Deletion...';
-      btn.disabled = true;
-
-      setTimeout(() => {
-        deletionFormWrapper.style.display = 'none';
-        deletionSuccess.classList.add('visible');
-      }, 1200);
-    });
-  }
 
   // 7. Scroll Reveal Animation using Intersection Observer
   const revealElements = document.querySelectorAll('.reveal');
