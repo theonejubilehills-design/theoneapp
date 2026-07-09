@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Service | THE ONE</title>
+  <meta name="description" content="Terms of Service for THE ONE Wellness Club app and website. Review booking cancellation terms, sanctuary policies, and member guidelines.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navigation Header -->
+  <header class="header scrolled">
+    <div class="container nav-container">
+      <a href="index.html" class="logo-link">
+        <img src="assets/n_logo.png" alt="THE ONE Logo" class="logo-img">
+        <span class="logo-text">THE ONE</span>
+      </a>
+      
+      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle Navigation menu">
+        &#9776;
+      </button>
+
+      <nav class="nav-links" id="nav-links">
+        <a href="index.html#features" class="nav-item">Features</a>
+        <a href="index.html#sanctuary" class="nav-item">Sanctuary Floors</a>
+        <a href="support.html" class="nav-item">Support</a>
+        <a href="privacy.html" class="nav-item">Privacy Policy</a>
+        <a href="index.html#download" class="nav-btn-download">Download App</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Terms Layout -->
+  <main class="compliance-layout">
+    <div class="container">
+      <div class="compliance-header">
+        <span class="section-label">Club Regulations</span>
+        <h1 class="section-title">Terms of Service</h1>
+        <span class="compliance-date">Last Updated: July 9, 2026</span>
+      </div>
+
+      <div class="compliance-content">
+        <div class="compliance-alert">
+          <p><strong>Please Read Carefully:</strong> Access to THE ONE Sanctuary facilities and bookings via our mobile application are subject to the following Terms of Service. These rules ensure a premium, respectful, and safe experience for all members.</p>
+        </div>
+
+        <h2>1. Membership & Eligibility</h2>
+        <p>Membership is exclusive, non-transferable, and subject to direct profile verification by the management of THE ONE Wellness Club. You must be at least 18 years of age to establish an account on the application. Any account creation with falsified details will lead to immediate deletion.</p>
+
+        <h2>2. Sanctuary Booking & Scheduling Rules</h2>
+        <p>Our mobile app provides direct real-time booking control. To ensure fair access to facilities across all floors, the following booking parameters apply:</p>
+        <ul>
+          <li><strong>Reservations:</strong> Active bookings must be made through the app prior to entering the facility. Space is strictly capped depending on the specific service (e.g. Pilates reformers have a maximum capacity of 3 concurrent athletes).</li>
+          <li><strong>Co-Booking & Host Status:</strong> If you book a multi-user space (such as Couple or Group Sauna sessions) as a primary host, all linked spots are subject to your booking status.</li>
+        </ul>
+
+        <h2>3. Cancellation & No-Show Policy</h2>
+        <p>To respect the schedule of our elite trainers, physiotherapists, and the usage of recovery chambers, we enforce a strict cancellation policy:</p>
+        <ul>
+          <li><strong>2-Hour Window:</strong> All bookings must be cancelled at least two (2) hours prior to the scheduled start time. Cancellations made outside this window will carry no penalty.</li>
+          <li><strong>Late Cancellations & No-Shows:</strong> If you fail to cancel a booking within 2 hours of the session, or fail to show up, the booking status is logged as a <strong>"No-Show"</strong>.</li>
+          <li><strong>No-Show Penalty:</strong> Each no-show event increments your profile's `noShowCount` in our Firestore database. Accumulating multiple no-shows will trigger automatic booking locks and may require administrative reactivation.</li>
+          <li><strong>Host Cancellation:</strong> If a primary host cancels a Couple or Group booking within the 2-hour window, all joiner slots are automatically cancelled, and the host will receive a no-show mark.</li>
+        </ul>
+
+        <h2>4. Use of sanctuary facilities</h2>
+        <p>Athletes must observe the specific rules designated for each floor:</p>
+        <ul>
+          <li><strong>4th Floor (Sessions):</strong> Athletic apparel is required. Gym shoes must be clean and suited for high-intensity work.</li>
+          <li><strong>2nd Floor (Styling & HBOT):</strong> Ensure clinical guidelines are met before operating the HBOT hyperbaric chamber. Hair salon bookings are separate and must be checked in via the concierge.</li>
+          <li><strong>1st Floor (Therapy & Massage):</strong> Thermal chambers (Sauna/Infrared) and Cryo chambers have mandatory safety gaps (e.g., Cryo chamber has a 3-hour session gap requirement). Listen to recovery staff instructions.</li>
+          <li><strong>Ground Floor (Board Room):</strong> Reserving the boardroom is chargeable and subject to professional conduct guidelines.</li>
+        </ul>
+
+        <h2>5. Financial Obligations & Dues</h2>
+        <p>Certain classes, therapies, and spaces carry separate fees. Unpaid dues are logged on your account. Members must settle all pending dues via the app to remain eligible for subsequent bookings. Unresolved dues may result in the suspension of membership privileges.</p>
+
+        <h2>6. Liability Waiver & Safety Disclaimer</h2>
+        <p>By booking a session or utilizing any biohacking/fitness recovery equipment on our premises, you acknowledge that physical exercise and extreme therapies (such as cryotherapy, hyperbaric oxygen chambers, and thermal sauna exposure) carry inherent physical risks. You agree to waive all liability against THE ONE, its directors, staff, and trainers for any injuries, medical conditions, or physiological changes resulting from the use of our services.</p>
+
+        <h2>7. Termination of Access</h2>
+        <p>We reserve the right to suspend, terminate, or delete your account at our sole discretion, without notice, if you violate these Terms of Service, damage sanctuary equipment, engage in harassment, or fail to resolve outstanding dues.</p>
+
+        <h2>8. Contact & Support</h2>
+        <p>For questions or disputes regarding booking rules or cancellation marks, please submit an inquiry on our <a href="support.html" style="color: var(--color-accent); text-decoration: underline;">Support Center</a>.</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-bottom" style="border-top: none; padding-top: 0;">
+      <p>&copy; 2026 THE ONE Wellness Club. All Rights Reserved.</p>
+      <div class="footer-compliance-links">
+        <a href="index.html" class="footer-compliance-link">Home</a>
+        <a href="privacy.html" class="footer-compliance-link">Privacy Policy</a>
+        <a href="terms.html" class="footer-compliance-link" style="color: var(--color-text-secondary);">Terms of Service</a>
+        <a href="support.html" class="footer-compliance-link">Support & Account Deletion</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        .birthday-card-shimmer {
+            background: linear-gradient(
+                45deg,
+                rgba(201, 106, 50, 0.1) 0%,
+                rgba(201, 106, 50, 0.3) 50%,
+                rgba(201, 106, 50, 0.1) 100%
+            );
+            background-size: 200% 200%;
+            animation: shimmer 4s ease infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .confetti-piece {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #C96A32;
+            opacity: 0;
+        }
+
+        @keyframes confetti-fall {
+            0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(400px) rotate(720deg); opacity: 0; }
+        }
+
+        .luxury-glass {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary": "#f4bc72",
+                        "error": "#ffb4ab",
+                        "primary-fixed-dim": "#ffb690",
+                        "secondary-fixed": "#ffddb5",
+                        "surface-variant": "#3d322d",
+                        "secondary-container": "#6a4300",
+                        "on-primary": "#552100",
+                        "on-secondary-container": "#e9b268",
+                        "primary-fixed": "#ffdbca",
+                        "on-surface": "#f1dfd7",
+                        "surface-bright": "#423732",
+                        "on-secondary-fixed": "#2a1800",
+                        "inverse-primary": "#9a460f",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-high": "#322823",
+                        "outline-variant": "#55433a",
+                        "on-primary-fixed": "#341100",
+                        "on-secondary": "#452b00",
+                        "surface-container-highest": "#3d322d",
+                        "primary-container": "#d9763d",
+                        "surface": "#1a110d",
+                        "tertiary": "#6bd4f5",
+                        "secondary-fixed-dim": "#f4bc72",
+                        "on-tertiary": "#003543",
+                        "tertiary-fixed-dim": "#6bd4f5",
+                        "surface-container": "#271e19",
+                        "on-background": "#f1dfd7",
+                        "on-surface-variant": "#dcc1b5",
+                        "on-tertiary-fixed-variant": "#004e60",
+                        "surface-tint": "#ffb690",
+                        "tertiary-container": "#259dbc",
+                        "inverse-on-surface": "#392e29",
+                        "surface-dim": "#1a110d",
+                        "background": "#1a110d",
+                        "error-container": "#93000a",
+                        "outline": "#a38c81",
+                        "primary": "#ffb690",
+                        "surface-container-low": "#231a15",
+                        "surface-container-lowest": "#140c08",
+                        "on-error": "#690005",
+                        "inverse-surface": "#f1dfd7",
+                        "on-primary-fixed-variant": "#783200",
+                        "on-tertiary-container": "#002e3a",
+                        "on-secondary-fixed-variant": "#633f00",
+                        "tertiary-fixed": "#b5ebff",
+                        "on-primary-container": "#4a1c00",
+                        "on-tertiary-fixed": "#001f28"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "unit": "8px",
+                        "margin-mobile": "20px",
+                        "margin-desktop": "80px",
+                        "section-gap": "120px",
+                        "container-max": "1440px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Playfair Display"],
+                        "headline-lg": ["Playfair Display"],
+                        "display-lg-mobile": ["Playfair Display"],
+                        "label-caps": ["Inter"],
+                        "headline-md": ["Playfair Display"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg": ["48px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "display-lg-mobile": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                        "headline-md": ["32px", {"lineHeight": "1.3", "fontWeight": "500"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md overflow-hidden">
+<!-- Background Layer (Blurred Profile) -->
+<main class="fixed inset-0 z-0 flex flex-col opacity-20 grayscale pointer-events-none">
+<header class="h-16 w-full flex justify-between items-center px-margin-mobile md:px-margin-desktop border-b border-white/5">
+<span class="font-display-lg text-display-lg-mobile tracking-tighter text-on-surface uppercase">THE ONE</span>
+<div class="w-10 h-10 rounded-full bg-surface-container-high border border-white/10"></div>
+</header>
+<section class="flex-1 p-margin-mobile md:p-margin-desktop grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<div class="h-64 bg-surface-container rounded-lg"></div>
+<div class="h-64 bg-surface-container rounded-lg"></div>
+<div class="h-64 bg-surface-container rounded-lg col-span-full"></div>
+</section>
+</main>
+<!-- Overlay Layer -->
+<div class="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-[#0B0B0B]/90 backdrop-blur-md" id="birthday-overlay">
+<!-- Birthday Popup Card -->
+<div class="relative w-full max-w-xl luxury-glass rounded-xl overflow-hidden shadow-2xl scale-95 opacity-0 animate-in fade-in zoom-in duration-500 fill-mode-forwards" style="animation-delay: 200ms; animation-fill-mode: forwards;">
+<!-- Confetti Container -->
+<div class="absolute inset-0 pointer-events-none overflow-hidden" id="confetti-container"></div>
+<!-- Header with Gradient Shimmer -->
+<div class="h-48 birthday-card-shimmer flex flex-col items-center justify-center relative overflow-hidden">
+<div class="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary via-transparent to-transparent"></div>
+<div class="text-[80px] animate-float relative z-10">🎂</div>
+</div>
+<!-- Content -->
+<div class="px-8 pb-10 pt-8 text-center space-y-6">
+<div>
+<h1 class="font-display-lg text-display-lg-mobile md:text-headline-lg text-on-surface mb-2">Happy Birthday, Julian!</h1>
+<div class="w-12 h-1 bg-primary mx-auto rounded-full"></div>
+</div>
+<p class="font-body-lg text-on-surface-variant max-w-md mx-auto leading-relaxed">
+                    Another year of growth, vitality, and excellence. Today, we celebrate the discipline you bring to your journey. May your year ahead be as focused and powerful as your spirit.
+                </p>
+<!-- Celebratory Emojis Row -->
+<div class="flex justify-center gap-4 text-2xl py-2">
+<span class="hover:scale-125 transition-transform cursor-default">🎈</span>
+<span class="hover:scale-125 transition-transform cursor-default delay-75">🎁</span>
+<span class="hover:scale-125 transition-transform cursor-default delay-150">🥳</span>
+<span class="hover:scale-125 transition-transform cursor-default delay-225">🎊</span>
+<span class="hover:scale-125 transition-transform cursor-default delay-300">🌟</span>
+</div>
+<!-- Action Button -->
+<button class="group relative inline-flex items-center justify-center px-10 py-4 bg-primary text-on-primary font-label-caps tracking-widest rounded-full overflow-hidden transition-all hover:shadow-[0_0_30px_rgba(201,106,50,0.5)] active:scale-95" onclick="dismissPopup()">
+<span class="relative z-10 flex items-center gap-2">
+                        THANK YOU! 🙏
+                    </span>
+<div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</button>
+</div>
+<!-- Bottom Accent -->
+<div class="h-1 w-full bg-gradient-to-r from-transparent via-primary/30 to-transparent"></div>
+</div>
+</div>
+<!-- Bottom Navigation (Shared Component Integration) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 bg-black/40 backdrop-blur-3xl border-t border-white/5 opacity-50 grayscale">
+<div class="flex flex-col items-center justify-center text-on-surface/40">
+<span class="material-symbols-outlined mb-1">dashboard</span>
+<span class="font-label-caps text-[10px]">HOME</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface/40">
+<span class="material-symbols-outlined mb-1">event_seat</span>
+<span class="font-label-caps text-[10px]">RESERVE</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface/40">
+<span class="material-symbols-outlined mb-1">groups</span>
+<span class="font-label-caps text-[10px]">MY CLUB</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface/40">
+<span class="material-symbols-outlined mb-1">chat_bubble</span>
+<span class="font-label-caps text-[10px]">SUPPORT</span>
+</div>
+<div class="flex flex-col items-center justify-center text-primary">
+<span class="material-symbols-outlined mb-1">person</span>
+<span class="font-label-caps text-[10px]">PROFILE</span>
+</div>
+</nav>
+<script>
+        function createConfetti() {
+            const container = document.getElementById('confetti-container');
+            const colors = ['#C96A32', '#D9A45C', '#FFFFFF', '#FFB690'];
+            
+            for (let i = 0; i < 40; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti-piece';
+                
+                const size = Math.random() * 8 + 4 + 'px';
+                confetti.style.width = size;
+                confetti.style.height = size;
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.top = '-20px';
+                confetti.style.borderRadius = '2px';
+                
+                const delay = Math.random() * 3000;
+                const duration = Math.random() * 2000 + 2000;
+                
+                confetti.style.animation = `confetti-fall ${duration}ms linear ${delay}ms infinite`;
+                
+                container.appendChild(confetti);
+            }
+        }
+
+        function dismissPopup() {
+            const overlay = document.getElementById('birthday-overlay');
+            overlay.style.transition = 'opacity 500ms ease';
+            overlay.style.opacity = '0';
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                document.body.classList.remove('overflow-hidden');
+                // Restore main UI visibility for presentation
+                document.querySelector('main').classList.remove('opacity-20', 'grayscale');
+                document.querySelector('nav').classList.remove('opacity-50', 'grayscale');
+            }, 500);
+        }
+
+        // Initialize confetti
+        createConfetti();
+
+        // Reveal effect on load
+        window.addEventListener('load', () => {
+            const card = document.querySelector('#birthday-overlay > div');
+            card.classList.remove('opacity-0', 'scale-95');
+            card.classList.add('opacity-100', 'scale-100');
+        });
+    </script>
+</body></html>

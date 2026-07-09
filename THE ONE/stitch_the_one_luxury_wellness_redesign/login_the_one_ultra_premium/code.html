@@ -1,0 +1,237 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>THE ONE - Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600&amp;family=Playfair+Display:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#1a110d",
+                        "surface-container": "#271e19",
+                        "surface-container-low": "#231a15",
+                        "tertiary-fixed": "#b5ebff",
+                        "primary-fixed": "#ffdbca",
+                        "inverse-on-surface": "#392e29",
+                        "primary-fixed-dim": "#ffb690",
+                        "on-tertiary-fixed-variant": "#004e60",
+                        "on-secondary-fixed": "#2a1800",
+                        "tertiary-fixed-dim": "#6bd4f5",
+                        "on-secondary": "#452b00",
+                        "on-primary-fixed-variant": "#783200",
+                        "secondary-fixed-dim": "#f4bc72",
+                        "surface-container-highest": "#3d322d",
+                        "error": "#ffb4ab",
+                        "surface-tint": "#ffb690",
+                        "primary-container": "#d9763d",
+                        "on-primary-fixed": "#341100",
+                        "primary": "#ffb690",
+                        "on-primary": "#552100",
+                        "on-surface": "#f1dfd7",
+                        "on-error": "#690005",
+                        "surface-container-high": "#322823",
+                        "tertiary-container": "#259dbc",
+                        "secondary-container": "#6a4300",
+                        "inverse-primary": "#9a460f",
+                        "on-tertiary": "#003543",
+                        "secondary": "#f4bc72",
+                        "outline": "#a38c81",
+                        "secondary-fixed": "#ffddb5",
+                        "on-secondary-fixed-variant": "#633f00",
+                        "on-primary-container": "#4a1c00",
+                        "on-error-container": "#ffdad6",
+                        "on-background": "#f1dfd7",
+                        "error-container": "#93000a",
+                        "background": "#0B0B0B",
+                        "tertiary": "#6bd4f5",
+                        "surface-bright": "#423732",
+                        "on-tertiary-fixed": "#001f28",
+                        "inverse-surface": "#f1dfd7",
+                        "surface-dim": "#1a110d",
+                        "surface-variant": "#3d322d",
+                        "outline-variant": "#55433a",
+                        "surface-container-lowest": "#140c08",
+                        "on-tertiary-container": "#002e3a",
+                        "on-secondary-container": "#e9b268",
+                        "on-surface-variant": "#dcc1b5",
+                        "brand-orange": "#C97A46"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "display": ["Cormorant Garamond", "serif"],
+                        "body": ["Inter", "sans-serif"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background: radial-gradient(circle at 50% -20%, #1a1a1a 0%, #080808 100%);
+            color: #f1dfd7;
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .editorial-title {
+            font-family: 'Cormorant Garamond', serif;
+        }
+        .glass-pill {
+            background: rgba(21, 21, 21, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 0.5px solid rgba(201, 122, 70, 0.3);
+            border-radius: 9999px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+        .otp-input:focus {
+            outline: none;
+            border-bottom-color: #C97A46;
+        }
+        .premium-btn {
+            background: linear-gradient(135deg, #C97A46 0%, #A65D2E 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .premium-btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            transform: translate(-10%, -10%);
+            pointer-events: none;
+        }
+        .cinematic-glow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60vh;
+            background: radial-gradient(ellipse at 50% 0%, rgba(201, 122, 70, 0.05) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center px-8 relative">
+<div class="cinematic-glow"></div>
+<!-- Top Branding -->
+<div class="w-full text-center pt-24 pb-48 relative z-10">
+<h2 class="font-medium tracking-[0.8em] text-[11px] uppercase text-on-surface opacity-30">THE ONE</h2>
+</div>
+<!-- Main Content Area: Bottom weighted -->
+<div class="w-full max-w-[400px] flex flex-col items-center mt-auto mb-16 space-y-12 relative z-10">
+<!-- Header Text -->
+<div class="text-center space-y-4">
+<h1 class="editorial-title text-[52px] font-light leading-none tracking-tight text-on-surface italic">Log - In</h1>
+<p class="text-xs text-on-surface-variant font-light tracking-wide opacity-60">Please enter your credentials to proceed</p>
+</div>
+<!-- Auth Section -->
+<div class="w-full" id="auth-container">
+<!-- Step 1: Phone Entry -->
+<div class="space-y-4" id="step-phone">
+<div class="glass-pill flex items-center px-8 py-6">
+<!-- Flag Picker -->
+<div class="flex items-center space-x-2 pr-5 border-r border-white/5">
+<span class="text-xl grayscale opacity-80">🇮🇳</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[14px]">keyboard_arrow_down</span>
+</div>
+<div class="pl-6 flex-1">
+<label class="block text-[8px] uppercase tracking-[0.25em] text-on-surface-variant font-semibold mb-1 opacity-50">Phone number</label>
+<div class="flex items-center">
+<span class="text-[15px] font-medium mr-1.5 text-on-surface/90">+91</span>
+<input class="w-full bg-transparent border-none p-0 focus:ring-0 text-[15px] font-medium tracking-widest text-on-surface placeholder:text-surface-container-highest" placeholder="000 00 00" type="tel">
+</div>
+</div>
+</div>
+</div>
+<!-- Step 2: OTP Entry (Hidden) -->
+<div class="hidden space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700" id="step-otp">
+<div class="flex justify-between gap-4">
+<input class="otp-input w-full h-14 bg-transparent border-b border-white/10 text-center text-3xl font-display transition-all focus:border-brand-orange" maxlength="1" type="text">
+<input class="otp-input w-full h-14 bg-transparent border-b border-white/10 text-center text-3xl font-display transition-all focus:border-brand-orange" maxlength="1" type="text">
+<input class="otp-input w-full h-14 bg-transparent border-b border-white/10 text-center text-3xl font-display transition-all focus:border-brand-orange" maxlength="1" type="text">
+<input class="otp-input w-full h-14 bg-transparent border-b border-white/10 text-center text-3xl font-display transition-all focus:border-brand-orange" maxlength="1" type="text">
+<input class="otp-input w-full h-14 bg-transparent border-b border-white/10 text-center text-3xl font-display transition-all focus:border-brand-orange" maxlength="1" type="text">
+<input class="otp-input w-full h-14 bg-transparent border-b border-white/10 text-center text-3xl font-display transition-all focus:border-brand-orange" maxlength="1" type="text">
+</div>
+<div class="flex justify-between items-center text-[9px] font-bold uppercase tracking-[0.25em] text-on-surface-variant/60">
+<span class="cursor-pointer hover:text-brand-orange transition-colors">Resend Code</span>
+<span class="cursor-pointer hover:text-brand-orange transition-colors" onclick="resetStep()">Change Number</span>
+</div>
+</div>
+</div>
+<!-- Action Button -->
+<div class="w-full">
+<button class="premium-btn w-full text-white py-5 rounded-full font-bold tracking-[0.2em] text-[11px] uppercase transition-all shadow-2xl shadow-brand-orange/10 active:scale-95 active:opacity-90 duration-75" id="main-action-btn" onclick="handleAction()">
+                Get Code
+            </button>
+</div>
+</div>
+<!-- Footer -->
+<div class="pb-10 text-center mt-auto relative z-10">
+<span class="text-[8px] tracking-[0.6em] text-[#A38C81] uppercase font-medium opacity-50">
+            Longevity • Vitality • Community
+        </span>
+</div>
+<script>
+        let currentStep = 'phone';
+
+        function handleAction() {
+            if (currentStep === 'phone') {
+                showOTP();
+            } else {
+                console.log('Verifying...');
+            }
+        }
+
+        function showOTP() {
+            const stepPhone = document.getElementById('step-phone');
+            const stepOTP = document.getElementById('step-otp');
+            const btn = document.getElementById('main-action-btn');
+            
+            stepPhone.classList.add('hidden');
+            stepOTP.classList.remove('hidden');
+            btn.innerText = 'Verify & Login';
+            currentStep = 'otp';
+            
+            document.querySelector('.otp-input').focus();
+        }
+
+        function resetStep() {
+            const stepPhone = document.getElementById('step-phone');
+            const stepOTP = document.getElementById('step-otp');
+            const btn = document.getElementById('main-action-btn');
+            
+            stepOTP.classList.add('hidden');
+            stepPhone.classList.remove('hidden');
+            btn.innerText = 'Get Code';
+            currentStep = 'phone';
+        }
+
+        const inputs = document.querySelectorAll('.otp-input');
+        inputs.forEach((input, index) => {
+            input.addEventListener('keyup', (e) => {
+                if (e.target.value.length === 1 && index < inputs.length - 1) {
+                    inputs[index + 1].focus();
+                }
+                if (e.key === 'Backspace' && index > 0) {
+                    inputs[index - 1].focus();
+                }
+            });
+        });
+    </script>
+
+
+</body></html>

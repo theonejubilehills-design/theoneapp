@@ -1,0 +1,340 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24;
+            font-size: 24px;
+        }
+        .glass-card {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .gold-glow {
+            text-shadow: 0 0 15px rgba(217, 164, 92, 0.4);
+        }
+        body {
+            background-color: #0B0B0B;
+            color: #f1dfd7;
+            -webkit-font-smoothing: antialiased;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        
+        /* Floating Nav Animation */
+        @keyframes slideUpFade {
+            from {
+                opacity: 0;
+                transform: translate(-50%, 20px);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, 0);
+            }
+        }
+        .nav-float-animation {
+            opacity: 0;
+            animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 500ms;
+        }
+        
+        /* Smooth transitions for all interactives */
+        * {
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                "secondary": "#f4bc72",
+                "error": "#ffb4ab",
+                "primary-fixed-dim": "#ffb690",
+                "secondary-fixed": "#ffddb5",
+                "surface-variant": "#3d322d",
+                "secondary-container": "#6a4300",
+                "on-primary": "#552100",
+                "on-secondary-container": "#e9b268",
+                "primary-fixed": "#ffdbca",
+                "on-surface": "#f1dfd7",
+                "surface-bright": "#423732",
+                "on-secondary-fixed": "#2a1800",
+                "inverse-primary": "#9a460f",
+                "on-error-container": "#ffdad6",
+                "surface-container-high": "#322823",
+                "outline-variant": "#55433a",
+                "on-primary-fixed": "#341100",
+                "on-secondary": "#452b00",
+                "surface-container-highest": "#3d322d",
+                "primary-container": "#d9763d",
+                "surface": "#1a110d",
+                "tertiary": "#6bd4f5",
+                "secondary-fixed-dim": "#f4bc72",
+                "on-tertiary": "#003543",
+                "tertiary-fixed-dim": "#6bd4f5",
+                "surface-container": "#271e19",
+                "on-background": "#f1dfd7",
+                "on-surface-variant": "#dcc1b5",
+                "on-tertiary-fixed-variant": "#004e60",
+                "surface-tint": "#ffb690",
+                "tertiary-container": "#259dbc",
+                "inverse-on-surface": "#392e29",
+                "surface-dim": "#1a110d",
+                "background": "#1a110d",
+                "error-container": "#93000a",
+                "outline": "#a38c81",
+                "primary": "#ffb690",
+                "surface-container-low": "#231a15",
+                "surface-container-lowest": "#140c08",
+                "on-error": "#690005",
+                "inverse-surface": "#f1dfd7",
+                "on-primary-fixed-variant": "#783200",
+                "on-tertiary-container": "#002e3a",
+                "on-secondary-fixed-variant": "#633f00",
+                "tertiary-fixed": "#b5ebff",
+                "on-primary-container": "#4a1c00",
+                "on-tertiary-fixed": "#001f28"
+              },
+              "borderRadius": {
+                "DEFAULT": "0.125rem",
+                "lg": "0.25rem",
+                "xl": "0.5rem",
+                "full": "9999px"
+              },
+              "spacing": {
+                "gutter": "24px",
+                "unit": "8px",
+                "margin-mobile": "20px",
+                "margin-desktop": "80px",
+                "section-gap": "120px",
+                "container-max": "1440px"
+              },
+              "fontFamily": {
+                "display-lg": ["Playfair Display"],
+                "headline-lg": ["Playfair Display"],
+                "display-lg-mobile": ["Playfair Display"],
+                "label-caps": ["Inter"],
+                "headline-md": ["Playfair Display"],
+                "body-lg": ["Inter"],
+                "body-md": ["Inter"]
+              },
+              "fontSize": {
+                "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "headline-lg": ["48px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                "display-lg-mobile": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                "headline-md": ["32px", {"lineHeight": "1.3", "fontWeight": "500"}],
+                "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background selection:bg-primary selection:text-on-primary">
+<!-- Top AppBar Shell -->
+<header class="fixed top-0 w-full z-50 bg-black/40 backdrop-blur-xl border-b border-white/5 flex justify-between items-center px-margin-mobile md:px-margin-desktop h-16 transition-all duration-500">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full overflow-hidden border border-white/10">
+<img class="w-full h-full object-cover" data-alt="A high-end editorial portrait of a sophisticated man with a well-groomed beard, set against a dark, moody studio background. The lighting is dramatic and cinematic, emphasizing sharp textures and subtle shadows. The color palette is composed of deep blacks and warm skin tones, reflecting a premium, exclusive wellness brand aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0iNhbLV2Ga0FuMGjh1U9oSX8VDtU1OFazUvol6dM6V2ztzuU3K7Fi7PCqpdL3D_wepOxD_2zs9TL3Y1L85RIS2CU_z5eigAdALPUAqtubt0XjPWyClMqpkudWCSpP-44VfngTPu9wVg3CG5wXkhTQd_cpPuxYzmwkPPBTT-9EM57rqSPY7mJNt-vQYc4gMp91S4NTheCWGmvhWR86mfptvrbaX-Tb70yyA36vJ9IEN35vtBoxCF7fX17pMFDyN00RmB31DLGS3H0">
+</div>
+<span class="font-display-lg text-display-lg-mobile tracking-tighter text-on-surface uppercase">THE ONE</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface/60 hover:text-primary transition-all duration-300">notifications</button>
+</div>
+</header>
+<main class="pt-24 pb-40 max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+<!-- Hero Section -->
+<section class="mb-section-gap">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-8">
+<div class="space-y-4">
+<div class="flex flex-wrap items-center gap-4">
+<h1 class="font-headline-lg text-display-lg-mobile md:text-headline-lg text-on-surface">Welcome, Julian</h1>
+<span class="px-3 py-1 border border-[#D9A45C]/40 rounded-full text-[#D9A45C] font-label-caps text-label-caps tracking-widest gold-glow bg-[#D9A45C]/5">GOLD MEMBER</span>
+</div>
+<div class="inline-flex items-center gap-2 px-3 py-1.5 bg-primary-container/10 rounded-full border border-primary-container/20">
+<span class="material-symbols-outlined text-[14px] text-primary">timer</span>
+<span class="font-label-caps text-label-caps text-primary tracking-normal">12 Days Remaining</span>
+</div>
+</div>
+</div>
+<!-- Hero Bento -->
+<div class="mt-12 grid grid-cols-1 md:grid-cols-12 gap-gutter h-[500px] md:h-[600px]">
+<div class="md:col-span-8 relative group overflow-hidden rounded-xl">
+<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" data-alt="A luxury gym interior featuring rows of premium, high-tech strength training equipment under warm, atmospheric recessed lighting. The space is vast and minimalist, with dark matte floors and charcoal grey walls. A cinematic, low-key lighting approach creates deep shadows and elegant highlights on the polished surfaces, embodying a serene and exclusive sanctuary for high-performance training." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYVAh83tSDwWeN3xyw7fMmgm1WgzqBy_hpBcckZkuTMwQKZxg8qS32i8aP7qaYhfo3p1HhomJfG88Voe-7uGK32pZBtADy-DxUmWiC7vIfOa4zeF0bL5SHyLXw_mFNGLT5TIOPK8BeSJ54wnnO9MEEgsAlLSr-bq4SEzPF1W2NUVpMjKpON4CfaP3NwU8WtFBHU_WUy9yEJzfmnfspWLp_N6ngCKr-fmcK3LXbwOThEiapXBhQW046R_WnlDbpzALN3pRIRiy1wHE">
+<div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
+<div class="absolute bottom-10 left-10 right-10">
+<p class="font-label-caps text-label-caps text-primary mb-2">PRIVATE SUITE AVAILABLE</p>
+<h2 class="font-display-lg text-display-lg-mobile md:text-headline-lg text-white mb-6 max-w-xl">Optimize your peak performance today.</h2>
+<button class="bg-[#C96A32] text-white px-8 py-3 h-12 font-label-caps text-label-caps tracking-widest hover:brightness-110 rounded-full transition-all duration-300 active:scale-95 shadow-lg shadow-[#C96A32]/20 active:opacity-90 duration-75 ease-out">BOOK NOW</button>
+</div>
+</div>
+<div class="hidden md:flex md:col-span-4 flex-col gap-gutter">
+<div class="flex-1 glass-card p-8 flex flex-col justify-center rounded-xl">
+<span class="material-symbols-outlined text-primary mb-4 transition-transform group-hover:scale-110 duration-500">bolt</span>
+<h3 class="font-headline-md text-headline-md mb-2">Daily Goal</h3>
+<p class="font-body-md text-on-surface/60">You are 400 calories away from your weekly peak performance target.</p>
+<div class="mt-6 h-1 w-full bg-white/10 rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[75%] transition-all duration-1000"></div>
+</div>
+</div>
+<div class="flex-1 glass-card p-8 flex flex-col justify-center rounded-xl">
+<span class="material-symbols-outlined text-primary mb-4">calendar_today</span>
+<h3 class="font-headline-md text-headline-md mb-2">Next Visit</h3>
+<p class="font-body-md text-on-surface/60">Tomorrow, 08:30 AM<br>Strength &amp; Mobility Suite</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Equipment Category Grid -->
+<section class="mb-section-gap">
+<div class="flex items-center justify-between mb-12">
+<h3 class="font-headline-md text-headline-md border-l-2 border-primary pl-6">Equipment</h3>
+<a class="font-label-caps text-label-caps text-on-surface/40 hover:text-primary transition-all duration-300" href="#">VIEW ALL CATEGORIES</a>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+<!-- Treadmill -->
+<div class="glass-card aspect-square flex flex-col items-center justify-center gap-4 group cursor-pointer hover:bg-white/10 rounded-xl">
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform duration-500">directions_run</span>
+<span class="font-label-caps text-label-caps tracking-widest">TREADMILL</span>
+</div>
+<!-- Cycle -->
+<div class="glass-card aspect-square flex flex-col items-center justify-center gap-4 group cursor-pointer hover:bg-white/10 rounded-xl">
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform duration-500">pedal_bike</span>
+<span class="font-label-caps text-label-caps tracking-widest">CYCLE</span>
+</div>
+<!-- Elliptical -->
+<div class="glass-card aspect-square flex flex-col items-center justify-center gap-4 group cursor-pointer hover:bg-white/10 rounded-xl">
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform duration-500">fitness_center</span>
+<span class="font-label-caps text-label-caps tracking-widest">ELLIPTICAL</span>
+</div>
+<!-- Strength -->
+<div class="glass-card aspect-square flex flex-col items-center justify-center gap-4 group cursor-pointer hover:bg-white/10 rounded-xl">
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform duration-500">exercise</span>
+<span class="font-label-caps text-label-caps tracking-widest">STRENGTH</span>
+</div>
+<!-- Wellness -->
+<div class="glass-card aspect-square flex flex-col items-center justify-center gap-4 group cursor-pointer hover:bg-white/10 rounded-xl col-span-2 md:col-span-1">
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform duration-500">spa</span>
+<span class="font-label-caps text-label-caps tracking-widest">WELLNESS</span>
+</div>
+</div>
+</section>
+<!-- Recent Bookings -->
+<section class="mb-12">
+<h3 class="font-headline-md text-headline-md border-l-2 border-primary pl-6 mb-8">Recent Bookings</h3>
+<div class="space-y-4">
+<!-- Booking 1 -->
+<div class="glass-card p-6 flex items-center justify-between group hover:border-primary/20 rounded-xl cursor-pointer">
+<div class="flex items-center gap-6">
+<div class="w-12 h-12 bg-primary/10 flex items-center justify-center rounded-full group-hover:bg-primary/20 transition-all duration-500">
+<span class="material-symbols-outlined text-primary">pool</span>
+</div>
+<div>
+<p class="font-body-lg text-on-surface font-medium">Hydrotherapy Session</p>
+<p class="font-label-caps text-label-caps text-on-surface/40 mt-1 uppercase tracking-tight">COMPLETED — 24 OCT</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface/20 group-hover:text-primary group-hover:translate-x-1 transition-all duration-500">chevron_right</span>
+</div>
+<!-- Booking 2 -->
+<div class="glass-card p-6 flex items-center justify-between group hover:border-primary/20 rounded-xl cursor-pointer">
+<div class="flex items-center gap-6">
+<div class="w-12 h-12 bg-primary/10 flex items-center justify-center rounded-full group-hover:bg-primary/20 transition-all duration-500">
+<span class="material-symbols-outlined text-primary">self_improvement</span>
+</div>
+<div>
+<p class="font-body-lg text-on-surface font-medium">Mobility &amp; Stretch</p>
+<p class="font-label-caps text-label-caps text-on-surface/40 mt-1 uppercase tracking-tight">COMPLETED — 21 OCT</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface/20 group-hover:text-primary group-hover:translate-x-1 transition-all duration-500">chevron_right</span>
+</div>
+<!-- Booking 3 -->
+<div class="glass-card p-6 flex items-center justify-between group hover:border-primary/20 rounded-xl cursor-pointer">
+<div class="flex items-center gap-6">
+<div class="w-12 h-12 bg-primary/10 flex items-center justify-center rounded-full group-hover:bg-primary/20 transition-all duration-500">
+<span class="material-symbols-outlined text-primary">fitness_center</span>
+</div>
+<div>
+<p class="font-body-lg text-on-surface font-medium">Strength Suite #04</p>
+<p class="font-label-caps text-label-caps text-on-surface/40 mt-1 uppercase tracking-tight">COMPLETED — 19 OCT</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface/20 group-hover:text-primary group-hover:translate-x-1 transition-all duration-500">chevron_right</span>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Shell: Floating & Detached -->
+<div class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[calc(100%-40px)] max-w-lg z-50 nav-float-animation">
+<nav class="flex justify-around items-center px-6 py-4 bg-black/60 backdrop-blur-3xl border border-white/10 rounded-full shadow-2xl">
+<!-- Home (Active) -->
+<a class="flex flex-col items-center justify-center text-primary group transition-all duration-300 active:scale-95 active:opacity-90 duration-75 ease-out" href="#">
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-label-caps text-[10px] mt-1">HOME</span>
+</a>
+<!-- Reserve -->
+<a class="flex flex-col items-center justify-center text-on-surface/40 hover:text-primary transition-all duration-300 group active:scale-95 active:opacity-90 duration-75 ease-out" href="#">
+<span class="material-symbols-outlined">event_seat</span>
+<span class="font-label-caps text-[10px] mt-1">RESERVE</span>
+</a>
+<!-- My Club -->
+<a class="flex flex-col items-center justify-center text-on-surface/40 hover:text-primary transition-all duration-300 group active:scale-95 active:opacity-90 duration-75 ease-out" href="#">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-label-caps text-[10px] mt-1">MY CLUB</span>
+</a>
+<!-- Support -->
+<a class="flex flex-col items-center justify-center text-on-surface/40 hover:text-primary transition-all duration-300 group active:scale-95 active:opacity-90 duration-75 ease-out" href="#">
+<span class="material-symbols-outlined">chat_bubble</span>
+<span class="font-label-caps text-[10px] mt-1">SUPPORT</span>
+</a>
+<!-- Profile -->
+<a class="flex flex-col items-center justify-center text-on-surface/40 hover:text-primary transition-all duration-300 group active:scale-95 active:opacity-90 duration-75 ease-out" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-caps text-[10px] mt-1">PROFILE</span>
+</a>
+</nav>
+</div>
+<script>
+        // Micro-interactions and subtle effects
+        document.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 20) {
+                header.classList.add('bg-black/80', 'py-2');
+                header.classList.remove('bg-black/40');
+            } else {
+                header.classList.add('bg-black/40');
+                header.classList.remove('bg-black/80', 'py-2');
+            }
+        });
+
+        // Hover effect for Equipment cards with smooth timing
+        const equipmentCards = document.querySelectorAll('.glass-card');
+        equipmentCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.borderColor = 'rgba(255, 182, 144, 0.2)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.borderColor = 'rgba(255, 255, 255, 0.05)';
+            });
+        });
+    </script>
+
+
+</body></html>

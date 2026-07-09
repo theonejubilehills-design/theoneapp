@@ -1,0 +1,336 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>THE ONE - My Bookings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(23, 23, 23, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .booking-status-glow {
+            filter: drop-shadow(0 0 8px rgba(201, 106, 50, 0.3));
+        }
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0B0B0B;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3d322d;
+        }
+        @keyframes slideUpFade {
+            from {
+                opacity: 0;
+                transform: translate(-50%, 20px);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, 0);
+            }
+        }
+        .nav-animate {
+            animation: slideUpFade 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+    </style>
+<!-- Tailwind Config Verbatim -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary": "#f4bc72",
+                    "error": "#ffb4ab",
+                    "primary-fixed-dim": "#ffb690",
+                    "secondary-fixed": "#ffddb5",
+                    "surface-variant": "#3d322d",
+                    "secondary-container": "#6a4300",
+                    "on-primary": "#552100",
+                    "on-secondary-container": "#e9b268",
+                    "primary-fixed": "#ffdbca",
+                    "on-surface": "#f1dfd7",
+                    "surface-bright": "#423732",
+                    "on-secondary-fixed": "#2a1800",
+                    "inverse-primary": "#9a460f",
+                    "on-error-container": "#ffdad6",
+                    "surface-container-high": "#322823",
+                    "outline-variant": "#55433a",
+                    "on-primary-fixed": "#341100",
+                    "on-secondary": "#452b00",
+                    "surface-container-highest": "#3d322d",
+                    "primary-container": "#d9763d",
+                    "surface": "#1a110d",
+                    "tertiary": "#6bd4f5",
+                    "secondary-fixed-dim": "#f4bc72",
+                    "on-tertiary": "#003543",
+                    "tertiary-fixed-dim": "#6bd4f5",
+                    "surface-container": "#271e19",
+                    "on-background": "#f1dfd7",
+                    "on-surface-variant": "#dcc1b5",
+                    "on-tertiary-fixed-variant": "#004e60",
+                    "surface-tint": "#ffb690",
+                    "tertiary-container": "#259dbc",
+                    "inverse-on-surface": "#392e29",
+                    "surface-dim": "#1a110d",
+                    "background": "#1a110d",
+                    "error-container": "#93000a",
+                    "outline": "#a38c81",
+                    "primary": "#ffb690",
+                    "surface-container-low": "#231a15",
+                    "surface-container-lowest": "#140c08",
+                    "on-error": "#690005",
+                    "inverse-surface": "#f1dfd7",
+                    "on-primary-fixed-variant": "#783200",
+                    "on-tertiary-container": "#002e3a",
+                    "on-secondary-fixed-variant": "#633f00",
+                    "tertiary-fixed": "#b5ebff",
+                    "on-primary-container": "#4a1c00",
+                    "on-tertiary-fixed": "#001f28"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "unit": "8px",
+                    "margin-mobile": "20px",
+                    "margin-desktop": "80px",
+                    "section-gap": "120px",
+                    "container-max": "1440px"
+            },
+            "fontFamily": {
+                    "display-lg": ["Playfair Display"],
+                    "headline-lg": ["Playfair Display"],
+                    "display-lg-mobile": ["Playfair Display"],
+                    "label-caps": ["Inter"],
+                    "headline-md": ["Playfair Display"],
+                    "body-lg": ["Inter"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg": ["48px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "display-lg-mobile": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                    "headline-md": ["32px", {"lineHeight": "1.3", "fontWeight": "500"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen selection:bg-primary/30">
+<!-- TopAppBar -->
+<nav class="fixed top-0 w-full z-50 bg-black/40 backdrop-blur-xl border-b border-white/5 flex justify-between items-center px-margin-mobile h-16">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full overflow-hidden border border-primary/20">
+<img alt="User Profile Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-umhMVi9f_Mm6JJ9nzTd_URDM1TUFfHuoB6QYAX7yngYXKfatpz596nOM_-YNVnJvqAPhiKUx-H5e5hUjokWP1GW6Ru_nHin3nD3bdd8Kh_xCKzsqQPwdP0-sTn0wI20xhcvjKT2qpOwLNZVuYwQyMynkypRVrRXRW81ftgdbz8yc4u0Bn_ARhxoX58oQbn0r9DzMdwS2giEAJnqJn_4mlYLewOsfRQA4xEqwFf05zlR4qIUWRR7sNEJ-gcGKX6SJLXeRmeW3TI4">
+</div>
+<span class="font-display-lg text-display-lg-mobile tracking-tighter text-on-surface uppercase">THE ONE</span>
+</div>
+<button class="material-symbols-outlined text-primary scale-95 transition-transform active:scale-90" data-icon="notifications">notifications</button>
+</nav>
+<!-- Main Content Canvas -->
+<main class="pt-24 pb-40 px-margin-mobile max-w-container-max mx-auto">
+<!-- Header Section -->
+<header class="mb-10">
+<h1 class="font-headline-lg text-headline-md text-on-surface mb-2">My Bookings</h1>
+<p class="font-body-md text-on-surface-variant max-w-md opacity-80">Manage your upcoming journeys and review your history with THE ONE sanctuary.</p>
+</header>
+<!-- Filter Tabs -->
+<div class="flex gap-8 mb-8 border-b border-white/5 pb-2">
+<button class="font-label-caps text-label-caps text-primary relative pb-2 transition-all hover:text-primary active:scale-95" onclick="switchTab(this, 'upcoming')">
+                UPCOMING
+                <div class="absolute bottom-0 left-0 w-full h-[1px] bg-primary"></div>
+</button>
+<button class="font-label-caps text-label-caps text-on-surface/40 pb-2 transition-all hover:text-primary active:scale-95" onclick="switchTab(this, 'past')">
+                PAST
+            </button>
+<button class="font-label-caps text-label-caps text-on-surface/40 pb-2 transition-all hover:text-primary active:scale-95" onclick="switchTab(this, 'all')">
+                ALL
+            </button>
+</div>
+<!-- Booking List Grid -->
+<div class="space-y-4" id="booking-container">
+<!-- Booking Card 1: Upcoming -->
+<div class="glass-card p-6 flex flex-col md:flex-row md:items-center justify-between gap-6 group transition-all duration-500 hover:bg-white/5 rounded-xl">
+<div class="flex items-center gap-6">
+<div class="w-16 h-16 flex items-center justify-center bg-surface-variant/30 rounded-lg border border-white/5">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="spa">spa</span>
+</div>
+<div>
+<div class="flex items-center gap-3 mb-1">
+<h3 class="font-headline-md text-[20px] leading-tight text-on-surface">Deep Tissue Massage</h3>
+<span class="font-label-caps text-[10px] px-2 py-1 bg-primary/10 text-primary border border-primary/20 rounded-full tracking-widest uppercase">CONFIRMED</span>
+</div>
+<div class="flex items-center gap-4 text-on-surface/60 font-body-md text-sm">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="calendar_today">calendar_today</span>
+<span class="">Oct 24, 2023</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span>
+<span class="">14:30 - 15:30</span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="font-label-caps text-label-caps py-3 px-6 border border-white/10 text-on-surface/60 hover:border-white/30 hover:text-on-surface transition-all active:scale-95 rounded-full active:opacity-90 duration-75 ease-out">MODIFY</button>
+<button class="font-label-caps text-label-caps py-3 px-6 border border-error/20 text-error hover:bg-error/10 transition-all active:scale-95 rounded-full active:opacity-90 duration-75 ease-out">CANCEL BOOKING</button>
+</div>
+</div>
+<!-- Booking Card 2: Upcoming -->
+<div class="glass-card p-6 flex flex-col md:flex-row md:items-center justify-between gap-6 group transition-all duration-500 hover:bg-white/5 rounded-xl">
+<div class="flex items-center gap-6">
+<div class="w-16 h-16 flex items-center justify-center bg-surface-variant/30 rounded-lg border border-white/5">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="fitness_center">fitness_center</span>
+</div>
+<div>
+<div class="flex items-center gap-3 mb-1">
+<h3 class="font-headline-md text-[20px] leading-tight text-on-surface">Private Bio-Performance Training</h3>
+<span class="font-label-caps text-[10px] px-2 py-1 bg-primary/10 text-primary border border-primary/20 rounded-full tracking-widest uppercase">CONFIRMED</span>
+</div>
+<div class="flex items-center gap-4 text-on-surface/60 font-body-md text-sm">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="calendar_today">calendar_today</span>
+<span class="">Oct 26, 2023</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span>
+<span class="">08:00 - 09:30</span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="font-label-caps text-label-caps py-3 px-6 border border-white/10 text-on-surface/60 hover:border-white/30 hover:text-on-surface transition-all active:scale-95 rounded-full active:opacity-90 duration-75 ease-out">MODIFY</button>
+<button class="font-label-caps text-label-caps py-3 px-6 border border-error/20 text-error hover:bg-error/10 transition-all active:scale-95 rounded-full active:opacity-90 duration-75 ease-out">CANCEL BOOKING</button>
+</div>
+</div>
+<!-- Booking Card 3: Status Variation (Cancelled) -->
+<div class="glass-card p-6 flex flex-col md:flex-row md:items-center justify-between gap-6 opacity-60 rounded-xl">
+<div class="flex items-center gap-6">
+<div class="w-16 h-16 flex items-center justify-center bg-surface-variant/10 rounded-lg border border-white/5 grayscale">
+<span class="material-symbols-outlined text-on-surface/40 text-3xl" data-icon="restaurant">restaurant</span>
+</div>
+<div>
+<div class="flex items-center gap-3 mb-1">
+<h3 class="font-headline-md text-[20px] leading-tight text-on-surface/60 line-through">Nourish Kitchen - Chef's Table</h3>
+<span class="font-label-caps text-[10px] px-2 py-1 bg-error/10 text-error border border-error/20 rounded-full tracking-widest uppercase">CANCELLED</span>
+</div>
+<div class="flex items-center gap-4 text-on-surface/40 font-body-md text-sm">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="calendar_today">calendar_today</span>
+<span class="">Oct 27, 2023</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span>
+<span class="">19:00 - 21:00</span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="font-label-caps text-label-caps py-3 px-6 border border-white/10 text-on-surface/40 hover:text-on-surface transition-all active:scale-95 rounded-full active:opacity-90 duration-75 ease-out">REBOOK</button>
+</div>
+</div>
+</div>
+<!-- Atmospheric Element -->
+<div class="mt-24 py-12 border-t border-white/5 flex flex-col items-center text-center">
+<span class="material-symbols-outlined text-primary/20 text-64px mb-4" data-icon="auto_awesome">auto_awesome</span>
+<h4 class="font-headline-md text-on-surface/40">The luxury of time is yours to claim.</h4>
+<p class="font-body-md text-on-surface/20 mt-2">Bookings are held for 15 minutes past scheduled start time.</p>
+</div>
+</main>
+<!-- BottomNavBar - Redesigned as detached floating bar -->
+<div class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[calc(100%-40px)] max-w-md z-50 opacity-0 nav-animate">
+<nav class="bg-black/60 backdrop-blur-2xl border border-white/10 rounded-full flex justify-around items-center px-4 py-3 shadow-2xl">
+<!-- HOME -->
+<a class="flex flex-col items-center justify-center text-on-surface/40 hover:text-primary/80 transition-all active:scale-90 duration-200 active:opacity-90 duration-75 ease-out" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-caps text-[10px] mt-1">HOME</span>
+</a>
+<!-- RESERVE -->
+<a class="flex flex-col items-center justify-center text-primary hover:text-primary/80 transition-all active:scale-90 duration-200 active:opacity-90 duration-75 ease-out" href="#">
+<span class="material-symbols-outlined" data-icon="event_seat" style="font-variation-settings: 'FILL' 1;">event_seat</span>
+<span class="font-label-caps text-[10px] mt-1">RESERVE</span>
+</a>
+<!-- MY CLUB -->
+<a class="flex flex-col items-center justify-center text-on-surface/40 hover:text-primary/80 transition-all active:scale-90 duration-200 active:opacity-90 duration-75 ease-out" href="#">
+<span class="material-symbols-outlined" data-icon="groups">groups</span>
+<span class="font-label-caps text-[10px] mt-1">CLUB</span>
+</a>
+<!-- SUPPORT -->
+<a class="flex flex-col items-center justify-center text-on-surface/40 hover:text-primary/80 transition-all active:scale-90 duration-200 active:opacity-90 duration-75 ease-out" href="#">
+<span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
+<span class="font-label-caps text-[10px] mt-1">CHAT</span>
+</a>
+<!-- PROFILE -->
+<a class="flex flex-col items-center justify-center text-on-surface/40 hover:text-primary/80 transition-all active:scale-90 duration-200 active:opacity-90 duration-75 ease-out" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-caps text-[10px] mt-1">ME</span>
+</a>
+</nav>
+</div>
+<script>
+        function switchTab(element, tabName) {
+            // Remove active styles from all buttons
+            const buttons = element.parentElement.querySelectorAll('button');
+            buttons.forEach(btn => {
+                btn.classList.remove('text-primary');
+                btn.classList.add('text-on-surface/40');
+                const line = btn.querySelector('div');
+                if (line) line.remove();
+            });
+
+            // Add active styles to clicked button
+            element.classList.remove('text-on-surface/40');
+            element.classList.add('text-primary');
+            const activeLine = document.createElement('div');
+            activeLine.className = "absolute bottom-0 left-0 w-full h-[1px] bg-primary";
+            element.appendChild(activeLine);
+
+            // Simple reveal effect for list items
+            const container = document.getElementById('booking-container');
+            container.style.opacity = '0';
+            container.style.transform = 'translateY(10px)';
+            
+            setTimeout(() => {
+                container.style.transition = 'all 0.5s cubic-bezier(0.22, 1, 0.36, 1)';
+                container.style.opacity = '1';
+                container.style.transform = 'translateY(0)';
+            }, 50);
+        }
+
+        // Add subtle interaction to cards
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-2px)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+
+
+</body></html>

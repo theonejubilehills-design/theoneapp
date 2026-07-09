@@ -1,0 +1,440 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>THE ONE | Admin Portal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary": "#f4bc72",
+                    "error": "#ffb4ab",
+                    "primary-fixed-dim": "#ffb690",
+                    "secondary-fixed": "#ffddb5",
+                    "surface-variant": "#3d322d",
+                    "secondary-container": "#6a4300",
+                    "on-primary": "#552100",
+                    "on-secondary-container": "#e9b268",
+                    "primary-fixed": "#ffdbca",
+                    "on-surface": "#f1dfd7",
+                    "surface-bright": "#423732",
+                    "on-secondary-fixed": "#2a1800",
+                    "inverse-primary": "#9a460f",
+                    "on-error-container": "#ffdad6",
+                    "surface-container-high": "#322823",
+                    "outline-variant": "#55433a",
+                    "on-primary-fixed": "#341100",
+                    "on-secondary": "#452b00",
+                    "surface-container-highest": "#3d322d",
+                    "primary-container": "#d9763d",
+                    "surface": "#1a110d",
+                    "tertiary": "#6bd4f5",
+                    "secondary-fixed-dim": "#f4bc72",
+                    "on-tertiary": "#003543",
+                    "tertiary-fixed-dim": "#6bd4f5",
+                    "surface-container": "#271e19",
+                    "on-background": "#f1dfd7",
+                    "on-surface-variant": "#dcc1b5",
+                    "on-tertiary-fixed-variant": "#004e60",
+                    "surface-tint": "#ffb690",
+                    "tertiary-container": "#259dbc",
+                    "inverse-on-surface": "#392e29",
+                    "surface-dim": "#1a110d",
+                    "background": "#1a110d",
+                    "error-container": "#93000a",
+                    "outline": "#a38c81",
+                    "primary": "#ffb690",
+                    "surface-container-low": "#231a15",
+                    "surface-container-lowest": "#140c08",
+                    "on-error": "#690005",
+                    "inverse-surface": "#f1dfd7",
+                    "on-primary-fixed-variant": "#783200",
+                    "on-tertiary-container": "#002e3a",
+                    "on-secondary-fixed-variant": "#633f00",
+                    "tertiary-fixed": "#b5ebff",
+                    "on-primary-container": "#4a1c00",
+                    "on-tertiary-fixed": "#001f28"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "unit": "8px",
+                    "margin-mobile": "20px",
+                    "margin-desktop": "80px",
+                    "section-gap": "120px",
+                    "container-max": "1440px"
+            },
+            "fontFamily": {
+                    "display-lg": ["Playfair Display"],
+                    "headline-lg": ["Playfair Display"],
+                    "display-lg-mobile": ["Playfair Display"],
+                    "label-caps": ["Inter"],
+                    "headline-md": ["Playfair Display"],
+                    "body-lg": ["Inter"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg": ["48px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "display-lg-mobile": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                    "headline-md": ["32px", {"lineHeight": "1.3", "fontWeight": "500"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #0B0B0B;
+            color: #f1dfd7;
+            -webkit-font-smoothing: antialiased;
+        }
+        .glass-panel {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        input:focus {
+            outline: none;
+            border-bottom: 1px solid #C96A32 !important;
+        }
+        .stat-card {
+            background: #171717;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+        .stat-card:hover {
+            border-color: rgba(201, 106, 50, 0.3);
+            transform: translateY(-2px);
+        }
+        @keyframes slideUpFade {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .nav-animate {
+            animation: slideUpFade 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+    </style>
+</head>
+<body class="font-body-md overflow-x-hidden">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 w-full z-50 bg-black/40 backdrop-blur-xl border-b border-white/5 flex justify-between items-center px-8 md:px-margin-desktop h-16 w-full">
+<div class="font-display-lg text-headline-md tracking-tighter text-on-surface uppercase">THE ONE</div>
+<nav class="hidden md:flex space-x-12">
+<a class="font-label-caps text-label-caps text-primary tracking-widest hover:text-primary transition-colors duration-300" href="#">MEMBERS</a>
+<a class="font-label-caps text-label-caps text-on-surface/60 tracking-widest hover:text-primary transition-colors duration-300" href="#">BOOKINGS</a>
+<a class="font-label-caps text-label-caps text-on-surface/60 tracking-widest hover:text-primary transition-colors duration-300" href="#">PAYMENTS</a>
+<a class="font-label-caps text-label-caps text-on-surface/60 tracking-widest hover:text-primary transition-colors duration-300" href="#">PRICING</a>
+<a class="font-label-caps text-label-caps text-on-surface/60 tracking-widest hover:text-primary transition-colors duration-300" href="#">SUPPORT</a>
+</nav>
+<div class="flex items-center space-x-6">
+<span class="material-symbols-outlined text-on-surface/60 cursor-pointer hover:text-primary transition-colors">notifications</span>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-white/10">
+<img alt="Admin Avatar" class="w-full h-full object-cover" data-alt="A professional close-up portrait of a high-end club administrator with a focused, serene expression. The lighting is dramatic and moody, utilizing soft side-lighting to highlight contours against a deep charcoal background. The aesthetic is clean, minimalist, and cinematic, reflecting the premium longevity and wellness brand identity with high-contrast, sharp details." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAiBZSashryRWjq2JQL1pn3oHNi_drfO_lh8aD4DpJNBm80Vv9F_f6uA0eI9AlNOVqRx4qRc2jm6hPlfC6-HX-P2kS8aWMQz02wSmUvTWd2wYY35DqcDDNa2YH1TdpacLp0xOfc_lQs3jNyH79o4USspZ5rTiGBLt9pdCLO3fQVA8yO62Ptq3tYblm1N4wQF8Aw1VHYCmDzkjFfO79LBC96xqpQRdnrnxS8BxyTm5U9sgc8pDMbrWmstfgf5jRvXtTIZJFKGUO4P30">
+</div>
+</div>
+</header>
+<main class="pt-32 pb-40 px-8 md:px-margin-desktop max-w-[1440px] mx-auto">
+<!-- Header Section & Search -->
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
+<div>
+<h1 class="font-display-lg text-headline-lg mb-2">Member Directory</h1>
+<p class="font-body-md text-on-surface/40 max-w-md">Manage your elite community, oversee registrations, and monitor facility engagement.</p>
+</div>
+<div class="relative w-full md:w-96 group">
+<div class="relative flex items-center bg-white/5 border border-white/10 rounded-full px-6 py-3 transition-all group-focus-within:border-primary/50">
+<span class="material-symbols-outlined text-on-surface/40 group-focus-within:text-primary transition-colors mr-3">search</span>
+<input class="w-full bg-transparent border-0 p-0 text-on-surface placeholder:text-on-surface/20 focus:ring-0 font-body-md" placeholder="Search members by name..." type="text">
+</div>
+</div>
+</div>
+<!-- Membership Stats Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
+<div class="stat-card p-8 rounded-lg">
+<div class="flex justify-between items-start mb-6">
+<span class="font-label-caps text-label-caps text-on-surface/40 tracking-[0.2em]">TOTAL MEMBERS</span>
+<span class="material-symbols-outlined text-primary/40">groups</span>
+</div>
+<div class="font-display-lg text-headline-lg leading-none mb-1">1,284</div>
+<div class="font-label-caps text-[10px] text-primary">+12% from last month</div>
+</div>
+<div class="stat-card p-8 rounded-lg">
+<div class="flex justify-between items-start mb-6">
+<span class="font-label-caps text-label-caps text-on-surface/40 tracking-[0.2em]">ACTIVE NOW</span>
+<span class="material-symbols-outlined text-primary/40">bolt</span>
+</div>
+<div class="font-display-lg text-headline-lg leading-none mb-1">842</div>
+<div class="font-label-caps text-[10px] text-secondary">Peak utilization</div>
+</div>
+<div class="stat-card p-8 rounded-lg">
+<div class="flex justify-between items-start mb-6">
+<span class="font-label-caps text-label-caps text-on-surface/40 tracking-[0.2em]">EXPIRING SOON</span>
+<span class="material-symbols-outlined text-primary/40">calendar_today</span>
+</div>
+<div class="font-display-lg text-headline-lg leading-none mb-1">42</div>
+<div class="font-label-caps text-[10px] text-error">Requires renewal</div>
+</div>
+<div class="stat-card p-8 rounded-lg">
+<div class="flex justify-between items-start mb-6">
+<span class="font-label-caps text-label-caps text-on-surface/40 tracking-[0.2em]">BLOCKED</span>
+<span class="material-symbols-outlined text-primary/40">block</span>
+</div>
+<div class="font-display-lg text-headline-lg leading-none mb-1">08</div>
+<div class="font-label-caps text-[10px] text-on-surface/20">Administrative hold</div>
+</div>
+</div>
+<!-- Main Content Area: Add Member & List -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+<!-- Add New Member Form -->
+<div class="lg:col-span-5">
+<div class="glass-panel p-10 rounded-lg sticky top-24">
+<h2 class="font-display-lg text-headline-md mb-8">Add New Member</h2>
+<form class="space-y-8">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="relative">
+<label class="font-label-caps text-[10px] text-on-surface/40 block mb-1">FULL NAME</label>
+<input class="w-full bg-transparent border-0 border-b border-white/20 py-2 text-on-surface focus:ring-0 font-body-md" placeholder="e.g. Julian Vane" type="text">
+</div>
+<div class="relative">
+<label class="font-label-caps text-[10px] text-on-surface/40 block mb-1">PHONE NUMBER</label>
+<input class="w-full bg-transparent border-0 border-b border-white/20 py-2 text-on-surface focus:ring-0 font-body-md" placeholder="+1 (555) 000-0000" type="tel">
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="relative">
+<label class="font-label-caps text-[10px] text-on-surface/40 block mb-1">BIRTHDAY</label>
+<input class="w-full bg-transparent border-0 border-b border-white/20 py-2 text-on-surface focus:ring-0 font-body-md appearance-none" type="date">
+</div>
+<div class="relative">
+<label class="font-label-caps text-[10px] text-on-surface/40 block mb-1">GENDER</label>
+<select class="w-full bg-transparent border-0 border-b border-white/20 py-2 text-on-surface focus:ring-0 font-body-md appearance-none">
+<option class="bg-surface">Select gender</option>
+<option class="bg-surface">Male</option>
+<option class="bg-surface">Female</option>
+<option class="bg-surface">Non-binary</option>
+</select>
+</div>
+</div>
+<div class="relative">
+<label class="font-label-caps text-[10px] text-on-surface/40 block mb-1">MEMBERSHIP PLAN</label>
+<select class="w-full bg-transparent border-0 border-b border-white/20 py-2 text-on-surface focus:ring-0 font-body-md appearance-none">
+<option class="bg-surface">The One: Black Elite</option>
+<option class="bg-surface">The One: Gold Sanctuary</option>
+<option class="bg-surface">The One: Wellness Essential</option>
+</select>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="relative">
+<label class="font-label-caps text-[10px] text-on-surface/40 block mb-1">START DATE</label>
+<input class="w-full bg-transparent border-0 border-b border-white/20 py-2 text-on-surface focus:ring-0 font-body-md" type="date">
+</div>
+<div class="relative">
+<label class="font-label-caps text-[10px] text-on-surface/40 block mb-1">END DATE</label>
+<input class="w-full bg-transparent border-0 border-b border-white/20 py-2 text-on-surface focus:ring-0 font-body-md" type="date">
+</div>
+</div>
+<button class="w-full bg-[#C96A32] text-white py-4 rounded-full font-label-caps tracking-widest text-label-caps hover:bg-[#b05a2a] transition-all transform active:scale-95 duration-200 mt-4 active:opacity-90 duration-75 ease-out" type="submit">
+                            ADD USER
+                        </button>
+</form>
+</div>
+</div>
+<!-- Recent Activity / Table -->
+<div class="lg:col-span-7">
+<div class="flex justify-between items-center mb-8">
+<h3 class="font-display-lg text-headline-md">Recent Activations</h3>
+<button class="font-label-caps text-[10px] text-primary border-b border-primary/20 hover:border-primary transition-all active:scale-95 active:opacity-90 duration-75 ease-out">VIEW ALL</button>
+</div>
+<div class="space-y-4">
+<!-- Member Row 1 -->
+<div class="stat-card p-6 rounded-lg flex items-center justify-between">
+<div class="flex items-center space-x-6">
+<div class="w-12 h-12 rounded-full bg-surface-variant flex items-center justify-center font-display-lg text-primary text-xl">
+                                EA
+                            </div>
+<div>
+<h4 class="font-body-lg font-semibold text-on-surface">Elena Aris</h4>
+<p class="text-on-surface/40 font-label-caps text-[10px] tracking-widest">MEMBER ID: #00842</p>
+</div>
+</div>
+<div class="hidden md:block">
+<div class="text-on-surface/40 font-label-caps text-[10px] tracking-widest mb-1">PLAN</div>
+<div class="text-on-surface font-body-md">Gold Sanctuary</div>
+</div>
+<div class="text-right">
+<span class="inline-block px-3 py-1 border border-primary/20 text-primary font-label-caps text-[9px] tracking-widest rounded-full">ACTIVE</span>
+</div>
+</div>
+<!-- Member Row 2 -->
+<div class="stat-card p-6 rounded-lg flex items-center justify-between">
+<div class="flex items-center space-x-6">
+<div class="w-12 h-12 rounded-full bg-surface-variant flex items-center justify-center font-display-lg text-primary text-xl">
+                                MK
+                            </div>
+<div>
+<h4 class="font-body-lg font-semibold text-on-surface">Marcus Knight</h4>
+<p class="text-on-surface/40 font-label-caps text-[10px] tracking-widest">MEMBER ID: #00911</p>
+</div>
+</div>
+<div class="hidden md:block">
+<div class="text-on-surface/40 font-label-caps text-[10px] tracking-widest mb-1">PLAN</div>
+<div class="text-on-surface font-body-md">Black Elite</div>
+</div>
+<div class="text-right">
+<span class="inline-block px-3 py-1 border border-primary/20 text-primary font-label-caps text-[9px] tracking-widest rounded-full">ACTIVE</span>
+</div>
+</div>
+<!-- Member Row 3 -->
+<div class="stat-card p-6 rounded-lg flex items-center justify-between opacity-60">
+<div class="flex items-center space-x-6">
+<div class="w-12 h-12 rounded-full bg-surface-variant flex items-center justify-center font-display-lg text-primary text-xl">
+                                SL
+                            </div>
+<div>
+<h4 class="font-body-lg font-semibold text-on-surface">Sasha Low</h4>
+<p class="text-on-surface/40 font-label-caps text-[10px] tracking-widest">MEMBER ID: #00762</p>
+</div>
+</div>
+<div class="hidden md:block">
+<div class="text-on-surface/40 font-label-caps text-[10px] tracking-widest mb-1">PLAN</div>
+<div class="text-on-surface font-body-md">Wellness Essential</div>
+</div>
+<div class="text-right">
+<span class="inline-block px-3 py-1 border border-white/10 text-on-surface/40 font-label-caps text-[9px] tracking-widest rounded-full">PENDING</span>
+</div>
+</div>
+<!-- Member Row 4 -->
+<div class="stat-card p-6 rounded-lg flex items-center justify-between">
+<div class="flex items-center space-x-6">
+<div class="w-12 h-12 rounded-full bg-surface-variant flex items-center justify-center font-display-lg text-primary text-xl">
+                                DR
+                            </div>
+<div>
+<h4 class="font-body-lg font-semibold text-on-surface">Dominic Reed</h4>
+<p class="text-on-surface/40 font-label-caps text-[10px] tracking-widest">MEMBER ID: #00885</p>
+</div>
+</div>
+<div class="hidden md:block">
+<div class="text-on-surface/40 font-label-caps text-[10px] tracking-widest mb-1">PLAN</div>
+<div class="text-on-surface font-body-md">Gold Sanctuary</div>
+</div>
+<div class="text-right">
+<span class="inline-block px-3 py-1 border border-primary/20 text-primary font-label-caps text-[9px] tracking-widest rounded-full">ACTIVE</span>
+</div>
+</div>
+<!-- Member Row 5 -->
+<div class="stat-card p-6 rounded-lg flex items-center justify-between">
+<div class="flex items-center space-x-6">
+<div class="w-12 h-12 rounded-full bg-surface-variant flex items-center justify-center font-display-lg text-primary text-xl">
+                                CM
+                            </div>
+<div>
+<h4 class="font-body-lg font-semibold text-on-surface">Clara Moretti</h4>
+<p class="text-on-surface/40 font-label-caps text-[10px] tracking-widest">MEMBER ID: #01024</p>
+</div>
+</div>
+<div class="hidden md:block">
+<div class="text-on-surface/40 font-label-caps text-[10px] tracking-widest mb-1">PLAN</div>
+<div class="text-on-surface font-body-md">Black Elite</div>
+</div>
+<div class="text-right">
+<span class="inline-block px-3 py-1 border border-secondary/20 text-secondary font-label-caps text-[9px] tracking-widest rounded-full">TRIAL</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Nav for Mobile Only - Floating/Detached Redesign -->
+<div class="md:hidden fixed bottom-6 left-6 right-6 z-50 nav-animate">
+<nav class="bg-black/60 backdrop-blur-2xl border border-white/10 rounded-full flex justify-around items-center px-6 py-4 shadow-2xl">
+<div class="flex flex-col items-center justify-center text-primary group active:opacity-90 transition-all duration-75 ease-out">
+<span class="material-symbols-outlined transition-transform duration-300 group-active:scale-90">dashboard</span>
+<span class="font-label-caps text-[9px] mt-1 opacity-80">HOME</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface/40 group active:opacity-90 transition-all duration-75 ease-out">
+<span class="material-symbols-outlined transition-transform duration-300 group-active:scale-90">event_seat</span>
+<span class="font-label-caps text-[9px] mt-1 opacity-80">RESERVE</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface/40 group active:opacity-90 transition-all duration-75 ease-out">
+<span class="material-symbols-outlined transition-transform duration-300 group-active:scale-90">groups</span>
+<span class="font-label-caps text-[9px] mt-1 opacity-80">MY CLUB</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface/40 group active:opacity-90 transition-all duration-75 ease-out">
+<span class="material-symbols-outlined transition-transform duration-300 group-active:scale-90">chat_bubble</span>
+<span class="font-label-caps text-[9px] mt-1 opacity-80">SUPPORT</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface/40 group active:opacity-90 transition-all duration-75 ease-out">
+<span class="material-symbols-outlined transition-transform duration-300 group-active:scale-90">person</span>
+<span class="font-label-caps text-[9px] mt-1 opacity-80">PROFILE</span>
+</div>
+</nav>
+</div>
+<script>
+        // Micro-interactions for form
+        const form = document.querySelector('form');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = form.querySelector('button');
+            const originalText = btn.innerText;
+            btn.innerText = 'PROCESSING...';
+            btn.classList.add('opacity-80');
+            
+            setTimeout(() => {
+                btn.innerText = 'SUCCESSFULLY ADDED';
+                btn.style.backgroundColor = '#4CAF50';
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                    btn.style.backgroundColor = '#C96A32';
+                    btn.classList.remove('opacity-80');
+                    form.reset();
+                }, 2000);
+            }, 1500);
+        });
+
+        // Search highlight interaction
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('input', (e) => {
+            const rows = document.querySelectorAll('.stat-card.flex');
+            const term = e.target.value.toLowerCase();
+            
+            rows.forEach(row => {
+                const name = row.querySelector('h4').innerText.toLowerCase();
+                if (name.includes(term)) {
+                    row.style.opacity = '1';
+                    row.style.display = 'flex';
+                } else {
+                    row.style.opacity = '0.2';
+                }
+            });
+        });
+    </script>
+
+
+</body></html>

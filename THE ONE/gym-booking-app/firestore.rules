@@ -1,0 +1,209 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper function to check if the user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Helper function to check if the user is a hardcoded admin number
+    function isHardcodedAdmin() {
+      return isAuthenticated() && (
+        request.auth.uid == '+918341664756' ||
+        request.auth.uid == '8341664756' ||
+        request.auth.uid == '918341664756' ||
+        request.auth.token.phone_number == '+918341664756' ||
+        request.auth.token.phone_number == '8341664756' ||
+        request.auth.token.phone_number == '918341664756'
+      );
+    }
+
+    // Helper function to match phone formats (with/without country codes and prefixes)
+    function isOwnerPhone(dbPhone) {
+      return isAuthenticated() && (
+        dbPhone == request.auth.uid ||
+        dbPhone == request.auth.token.phone_number ||
+        dbPhone == request.auth.uid.replace('+', '') ||
+        (request.auth.token.phone_number != null && dbPhone == request.auth.token.phone_number.replace('+', '')) ||
+        dbPhone == request.auth.uid.replace('+91', '') ||
+        (request.auth.token.phone_number != null && dbPhone == request.auth.token.phone_number.replace('+91', '')) ||
+        request.auth.uid == '+91' + dbPhone ||
+        (request.auth.token.phone_number != null && request.auth.token.phone_number == '+91' + dbPhone) ||
+        request.auth.uid == '91' + dbPhone ||
+        (request.auth.token.phone_number != null && request.auth.token.phone_number == '91' + dbPhone)
+      );
+    }
+
+    // Check if user exists in allowed_users collection with admin rights
+    function isAllowedAdminDoc(userId) {
+      return exists(/databases/$(database)/documents/allowed_users/$(userId)) && (
+        get(/databases/$(database)/documents/allowed_users/$(userId)).data.isAdmin == true ||
+        get(/databases/$(database)/documents/allowed_users/$(userId)).data.isSubAdmin == true
+      );
+    }
+
+    function isAllowedAdmin() {
+      return isAllowedAdminDoc(request.auth.uid) ||
+             (request.auth.token.phone_number != null && isAllowedAdminDoc(request.auth.token.phone_number)) ||
+             (request.auth.uid.startsWith('+') && isAllowedAdminDoc(request.auth.uid.replace('+', ''))) ||
+             (request.auth.uid.startsWith('+91') && isAllowedAdminDoc(request.auth.uid.replace('+91', ''))) ||
+             (request.auth.token.phone_number != null && request.auth.token.phone_number.startsWith('+') && isAllowedAdminDoc(request.auth.token.phone_number.replace('+', ''))) ||
+             (request.auth.token.phone_number != null && request.auth.token.phone_number.startsWith('+91') && isAllowedAdminDoc(request.auth.token.phone_number.replace('+91', '')));
+    }
+
+    // Check if user exists in users collection with admin/staff privileges
+    function isUserAdminOrStaffDoc(userId) {
+      return exists(/databases/$(database)/documents/users/$(userId)) && (
+        get(/databases/$(database)/documents/users/$(userId)).data.isAdmin == true ||
+        get(/databases/$(database)/documents/users/$(userId)).data.isSubAdmin == true ||
+        get(/databases/$(database)/documents/users/$(userId)).data.isStaff == true
+      );
+    }
+
+    function isUserAdminOrStaff() {
+      return isUserAdminOrStaffDoc(request.auth.uid) ||
+             (request.auth.token.phone_number != null && isUserAdminOrStaffDoc(request.auth.token.phone_number)) ||
+             (request.auth.uid.startsWith('+') && isUserAdminOrStaffDoc(request.auth.uid.replace('+', ''))) ||
+             (request.auth.uid.startsWith('+91') && isUserAdminOrStaffDoc(request.auth.uid.replace('+91', ''))) ||
+             (request.auth.token.phone_number != null && request.auth.token.phone_number.startsWith('+') && isUserAdminOrStaffDoc(request.auth.token.phone_number.replace('+', ''))) ||
+             (request.auth.token.phone_number != null && request.auth.token.phone_number.startsWith('+91') && isUserAdminOrStaffDoc(request.auth.token.phone_number.replace('+91', '')));
+    }
+
+    // General authorization helper
+    function isAdminOrStaff() {
+      return isHardcodedAdmin() || isAllowedAdmin() || isUserAdminOrStaff();
+    }
+
+    // Owner checks
+    function isOwner(userId) {
+      return isOwnerPhone(userId);
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────────
+    // COLLECTION RULES
+    // ─────────────────────────────────────────────────────────────────────────────
+
+    // Allowed Users (Admin Whitelist)
+    match /allowed_users/{userId} {
+      allow read: if isAuthenticated() && (isOwner(userId) || isAdminOrStaff());
+      allow write: if isAuthenticated() && isAdminOrStaff();
+    }
+
+    // Users Collection
+    match /users/{userId} {
+      allow read: if isAuthenticated() && (isOwner(userId) || isAdminOrStaff());
+      allow write: if isAuthenticated() && (isOwner(userId) || isAdminOrStaff());
+    }
+
+    // Bookings
+    match /bookings/{bookingId} {
+      allow read: if isAuthenticated() && (
+        isAdminOrStaff() || 
+        isOwnerPhone(resource.data.userId)
+      );
+      allow create: if isAuthenticated() && (
+        isAdminOrStaff() || 
+        isOwnerPhone(request.resource.data.userId)
+      );
+      allow update: if isAuthenticated() && (
+        isAdminOrStaff() || 
+        (isOwnerPhone(resource.data.userId) && request.resource.data.userId == resource.data.userId)
+      );
+      allow delete: if isAuthenticated() && (
+        isAdminOrStaff() || 
+        isOwnerPhone(resource.data.userId)
+      );
+    }
+
+    // Dues (Invoices/Ledger)
+    match /dues/{docId} {
+      allow read: if isAuthenticated() && (
+        isAdminOrStaff() || 
+        isOwnerPhone(resource.data.userId)
+      );
+      allow create: if isAuthenticated() && (
+        isAdminOrStaff() || 
+        isOwnerPhone(request.resource.data.userId)
+      );
+      allow update: if isAuthenticated() && isAdminOrStaff(); // Normal users cannot change status/paymentMethod
+      allow delete: if isAuthenticated() && (
+        isAdminOrStaff() || 
+        isOwnerPhone(resource.data.userId)
+      );
+    }
+
+    // Waitlists
+    match /waitlists/{docId} {
+      allow read: if isAuthenticated(); // Needed to let users see class waitlist counts
+      allow create: if isAuthenticated() && (
+        isAdminOrStaff() || 
+        isOwnerPhone(request.resource.data.userId)
+      );
+      allow update: if isAuthenticated() && (
+        isAdminOrStaff() || 
+        (isOwnerPhone(resource.data.userId) && request.resource.data.userId == resource.data.userId)
+      );
+      allow delete: if isAuthenticated() && (
+        isAdminOrStaff() || 
+        isOwnerPhone(resource.data.userId)
+      );
+    }
+
+    // Join Requests (for shared slots)
+    match /join_requests/{docId} {
+      allow read: if isAuthenticated() && (
+        isAdminOrStaff() || 
+        isOwnerPhone(resource.data.requesterId) || 
+        isOwnerPhone(resource.data.primaryUserId)
+      );
+      allow create: if isAuthenticated() && (
+        isAdminOrStaff() || 
+        isOwnerPhone(request.resource.data.requesterId)
+      );
+      allow update: if isAuthenticated() && (
+        isAdminOrStaff() || 
+        isOwnerPhone(resource.data.primaryUserId) || 
+        isOwnerPhone(resource.data.requesterId)
+      );
+      allow delete: if isAuthenticated() && (
+        isAdminOrStaff() || 
+        isOwnerPhone(resource.data.primaryUserId) || 
+        isOwnerPhone(resource.data.requesterId)
+      );
+    }
+
+    // In App Notifications
+    match /in_app_notifications/{docId} {
+      allow read, update, delete: if isAuthenticated() && (
+        isAdminOrStaff() || 
+        isOwnerPhone(resource.data.userId)
+      );
+      allow create: if isAuthenticated(); // Anyone authenticated can trigger/send a notification doc to someone else
+    }
+
+    // Feedbacks
+    match /feedbacks/{docId} {
+      allow read, update, delete: if isAuthenticated() && (
+        isAdminOrStaff() || 
+        isOwnerPhone(resource.data.userId)
+      );
+      allow create: if isAuthenticated() && (
+        isAdminOrStaff() || 
+        isOwnerPhone(request.resource.data.userId)
+      );
+    }
+
+    // Settings (Pricing, timing, configuration keys)
+    match /settings/{docId} {
+      allow read: if isAuthenticated(); // All screens read pricing settings
+      allow write: if isAuthenticated() && isAdminOrStaff();
+    }
+
+    // Deny access to all other paths
+    match /{document=**} {
+      allow read, write: false;
+    }
+  }
+}
+

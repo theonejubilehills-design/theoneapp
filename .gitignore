@@ -1,0 +1,36 @@
+# Dependency directories
+**/node_modules/
+**/jdk*/
+**/jdk17/
+
+# Build and distribution directories
+**/dist/
+**/web-build/
+**/build/
+**/out/
+
+# Expo directories
+**/.expo/
+expo-env.d.ts
+
+# Firebase directories/files
+**/.firebase/
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+
+# Large files
+**/*.apk
+**/*.ipa
+**/*.zip
+**/*.tar.gz
+
+# Local env files
+**/.env
+**/.env*.local
+
+# Editor and OS files
+**/.DS_Store
+**/.vscode/
+**/.idea/
+Thumbs.db
